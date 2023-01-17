@@ -5,23 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <script defer type="module">
+        const getTodos = async () => {
+            try {
+                const todosResponse = await fetch("http://localhost:8080/todolist", {method:"get"})
+                const todos = await todosResponse.json()
+                return todos
+            } catch(e) {
+                console.error('failed to reach endpoint', e)
+                return []
+            }
+        }
+
+        const allTodos = await getTodos()
+        console.log({ allTodos })
+
+        // render each todo item to screen individually
+        allTodos.forEach(todo => {
+            // create HTML elements
+            const container = document.createElement('div')
+            const title = document.createElement('h2')
+            const status = document.createElement('span')
+
+            // create handles for CSS styling
+            container.classList.add('todo-item')
+            container.setAttribute('id', `todo_${todo.id}`)
+
+            // put data into the HTML elements
+            title.innerText = todo.title
+            status.innerText = todo.status
+
+            // nest the HTML elements into the container element
+            container.appendChild(title)
+            container.appendChild(status)
+
+            // add the container to the page
+            document.body.appendChild(container)
+        })
+   </script>
+
+    <style>
+
+    </style>
 </head>
 <body>
-   <script>
-    async function All()
-    {
-        const todos = await fetch("http://localhost:8080/todolist", {method:"get"})
-        console.log(todos)
 
-    }
-    All()
-   </script> 
-   <!-- Access to fetch at 'http://localhost:8080/todolist' from origin 'null' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
-index.html:13          GET http://localhost:8080/todolist net::ERR_FAILED 200
-All @ index.html:13
-(anonymous) @ index.html:17
-index.html:13                  Uncaught (in promise) TypeError: Failed to fetch
-    at All (index.html:13:29)
-    at index.html:17:5 -->
 </body>
 </html>
