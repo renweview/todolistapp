@@ -19,6 +19,7 @@
         }
 
         const allTodos = await getTodos()
+        const todoContainer = document.querySelector('#todo-list')
         console.log({ allTodos })
 
         // render each todo item to screen individually
@@ -41,15 +42,50 @@
             container.appendChild(status)
 
             // add the container to the page
-            document.body.appendChild(container)
+            todoContainer.appendChild(container)
+        })
+
+        document.querySelector('#todo-create').addEventListener('click', () => {
+            // make call to backend to add new todo
+
+            // figure out how to add this todo to the page
+
+            // clear out the input field so it can be used again
+
+            // sample code - delete this
+            const todoInputText = document.querySelector('[name=todo-text-input]').value
+            alert(todoInputText)
         })
    </script>
 
     <style>
+        body {
+            /*background: #222;
+            background-image: linear-gradient(to bottom right, purple, blue);*/
+            font-family: sans-serif;
+        }
+        .todo-item {
+            background-color: #FAFAFA;
+            
+            padding: 1em;
+            margin-block: 2em;
+            border-radius: 3px;
+
+            box-shadow: 2px 2px 10px rgb(0 0 0 / 0.3);
+        } 
+
+
 
     </style>
 </head>
 <body>
+    <div id="todo-input">
+        <input id="todo-text-input" name="todo-text-input" type="text" placeholder="New Todo"/>
+        <button id="todo-create">submit</button>
+    </div>
 
+    <div id="todo-list">
+
+    </div>
 </body>
 </html>
